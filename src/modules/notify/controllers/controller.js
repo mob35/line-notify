@@ -34,6 +34,24 @@ exports.getNotify = function (req, res) {
 };
 
 exports.postNotify = function (req, res, next) {
+    request({
+        method: 'GET',
+        uri: 'https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=UxOzoFBdQrzhSghQdQTelG&redirect_uri=https://line-notifies.herokuapp.com&scope=notify&state=NO_STATE',
+    }, (err, httpResponse, body) => {
+        if (err) {
+            console.log(err);
+        } else {
+            // console.log(body);
+            console.log(httpResponse);
+            // res.json({
+            //     httpResponse: httpResponse,
+            //     body: body
+            // });
+            // req.data = {
+            //    message : req.body.message
+            // };
+        }
+    });
     let token = req.body.token;
     let message = req.body.message;
     request({
@@ -62,8 +80,8 @@ exports.postNotify = function (req, res, next) {
             next();
         }
     });
-    // req.data = req.body;
-    // next();
+    req.data = req.body;
+    next();
 };
 exports.createNotify = function (req, res) {
     req.body = req.data;
