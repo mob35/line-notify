@@ -1,0 +1,61 @@
+- (pass) api/campaign-list update 24/10/61
+- (pass) api/shop-list update 24/10/61
+- (pass) api/mastercategory-list update 24/10/61
+- (pass) masterFurnoverBank - ass 
+- (pass) masterPaymentType - ass
+- (pass) order generate no. - moo
+- (pass) order update slip การโอนเงิน - moo
+- (pass) address เพิ่ม defaultflag - ass
+- (pass) route ในการอัพเดท address flag (ต้อง get มาทั้งหมดแล้วอัพเดทตัวอื่นเป็น false) - ass
+- (pass) route checkout เพิ่ม address default - moo
+- (pass) สินค้าเดียวกันต้องไม่แสดง (productinshop, relateproduct) - moo
+- (pass) api/update-order-approve-transferred
+- (pass) api/update-order-reject-transferred
+- (pass) get-order-by-status (สำหรับแอปพลิเคชันผู้ซื้อ) : สถานะ waitpayment, waitshipping, waitreceive, completed, cancel
+- (pass) api/update-order-shipping
+- (pass) api/update-order-completed
+- (pass) api/update-order-cancel
+- (pass) api/update-order-adminreject
+- (pass) api/update-order-shopreject
+- (pass) api/get-order-detail
+- (pass) api/category-shop middleware cookingData ปรับเรื่องราคาสินค้า
+- (pass) /api/get-order-by-status-admin-seller
+- (pass) สร้างออเดอร์สำเร็จ ตัด stock สินค้า
+- (pass) สร้างออเดอร์สำเร็จ ตัด stock promotion ถ้าสินค้านั้นๆมี
+
+- (testting) api/product-bestseller-list รอสถานะ completed จาก order (Server flow order เสร็จแล้วเหลือ Frontend) //dashboard
+- (testting) api/product-bestseller-listview รอสถานะ completed จาก order (Server flow order เสร็จแล้วเหลือ Frontend) //
+========================================================================================================
+
+
+*** Notification onesignal: order เปลี่ยนสถานะ, create promotion, create code
+
+*** api/discount-list-by-product ดูรายการส่วนลดที่สามารถใช้งานได้ อยู่ในหน้า cart
+*** api/checkout เพิ่มตรวจสอบสินค้ากับส่วนลด
+
+
+*** api/product-recommend-list update 24/10/61
+        * ขาดข้อมูล likes, ratings, reviews
+*** api/specialsale-list mockup JSON
+*** api/campaign-detail ดูรายละเอียดสินค้าใน campaign
+    * ขาด sort by popular & bestseller ไม่มีข้อมูล
+    * ขาดข้อมูล likes, ratings, reviews
+    * เรื่อง ราคาใหม่กับส่วนลด ไม่มีข้อมูล?
+*** api/shopbycategory เหมือน api/shop-list
+*** api/productbycategory
+    * ขาด sort by popular & bestseller ไม่มีข้อมูล
+    * ขาดข้อมูล likes, ratings, reviews
+    * เรื่อง ราคาใหม่กับส่วนลด ไม่มีข้อมูล?
+*** api/product-detail
+    * ขาดข้อมูล likes, ratings, reviews (product,productinshop, relateproduct)
+    * ขาดข้อมูล ratings (shop)
+*** api/shop-detail
+    * ขาดข้อมูล follower ratings reviews ทั้ง ร้านค้าและสินค้า
+*** api/product-by-shop
+    * ขาด sort by popular & bestseller ไม่มีข้อมูล
+    * ขาดข้อมูล likes, ratings, reviews
+    * เรื่อง ราคาใหม่กับส่วนลด ไม่มีข้อมูล?
+*** api/product-by-category-shop
+    * ขาด sort by popular & bestseller ไม่มีข้อมูล
+    * ขาดข้อมูล likes, ratings, reviews
+    * เรื่อง ราคาใหม่กับส่วนลด ไม่มีข้อมูล?
