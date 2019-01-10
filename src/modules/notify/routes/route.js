@@ -15,8 +15,13 @@ module.exports = function (app) {
         .put(controller.update)
         .delete(controller.delete);
 
+
+
     app.route('/api/get-token')
         .get(controller.getToken);
+
+    app.route('/api/get-notify')
+        .get(controller.getNoti);
 
     app.route('/api/post-notify')
         .post(controller.postNotify, controller.createNotify);

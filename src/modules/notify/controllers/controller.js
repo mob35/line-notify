@@ -32,6 +32,32 @@ exports.getToken = function (req, res) {
     });
 };
 
+exports.getNoti = function (req, res) {
+    let token = 'AxsujbaGYVsyzUarDtuA1fVKOu1ppQ8QsY9YJOCZbDo';
+    let message = 'test message ';
+    request({
+        method: 'POST',
+        uri: 'https://notify-api.line.me/api/notify',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        auth: {
+            'bearer': token
+        },
+        form: {
+            message: message
+        }
+    }, (err, httpResponse, body) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({
+                body: body
+            });
+        }
+    });
+};
+
 exports.postNotify = function (req, res, next) {
 
     let token = req.body.token;
