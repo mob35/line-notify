@@ -15,7 +15,7 @@ module.exports = function (app) {
         .put(controller.update)
         .delete(controller.delete);
 
-    app.route('/api/get-token').all(core.jwtCheck, policy.isAllowed)
+    app.route('/api/get-token')
         .post(controller.getToken);
 
     app.route('/api/post-notify')
