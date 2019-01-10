@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.route('/api/notify').all(core.jwtCheck, policy.isAllowed)
     .post(controller.create);
 
-    app.route('/api/notify2').post('/', function(req, res, next) {
+    app.route('/api/notify2').post(function(req, res, next) {
         var token = 'cuHsIVD1yGgwnzEuSQ13Br9Y4T4ZE2lHVfN4T9MzNaB';
         var message = 'req.body.message';
        
