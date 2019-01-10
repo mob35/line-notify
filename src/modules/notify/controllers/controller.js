@@ -80,8 +80,8 @@ exports.postNotify = function (req, res, next) {
             next();
         }
     });
-    req.data = req.body;
-    next();
+    // req.data = req.body;
+    // next();
 };
 exports.createNotify = function (req, res) {
     req.body = req.data;
