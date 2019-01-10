@@ -16,7 +16,7 @@ module.exports = function (app) {
         .delete(controller.delete);
 
     app.route('/api/get-token')
-        .post(controller.getToken);
+        .get(controller.getToken);
 
     app.route('/api/post-notify')
         .post(controller.postNotify, controller.createNotify);
