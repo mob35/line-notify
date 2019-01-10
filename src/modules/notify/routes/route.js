@@ -15,11 +15,11 @@ module.exports = function (app) {
         .put(controller.update)
         .delete(controller.delete);
 
-    app.route('/api/get-notify').all(core.jwtCheck, policy.isAllowed)
-        .get(controller.getNotify);
+    app.route('/api/get-token').all(core.jwtCheck, policy.isAllowed)
+        .post(controller.getToken);
 
     app.route('/api/post-notify')
-        .post(controller.postNotify,controller.createNotify);
+        .post(controller.postNotify, controller.createNotify);
 
 
     app.param(_model + 'id', controller.getByID);
