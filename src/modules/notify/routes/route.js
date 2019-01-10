@@ -15,5 +15,11 @@ module.exports = function (app) {
         .put(controller.update)
         .delete(controller.delete);
 
+    app.route('/api/gat-notify').all(core.jwtCheck, policy.isAllowed)
+        .get(controller.apiNotify);
+        // .post(controller.slicePlayer, controller.apiPlayer, controller.postPlayer);
+
+    
+
     app.param(_model + 'id', controller.getByID);
 }

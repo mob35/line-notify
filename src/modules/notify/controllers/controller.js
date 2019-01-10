@@ -3,7 +3,35 @@ var mongoose = require('mongoose'),
     _model = require('../models/model').model,
     Model = mongoose.model(_model),
     errorHandler = require('../../core/controllers/errors.server.controller'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    request = require('request');
+
+exports.apiNotify = function (req, res, next) {
+    let token = 'cuHsIVD1yGgwnzEuSQ13Br9Y4T4ZE2lHVfN4T9MzNaB';
+    let message = 'req.body.message';
+    request({
+        method: 'POST',
+        uri: 'https://notify-api.line.me/api/notify',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        auth: {
+            'bearer': token
+        },
+        form: {
+            message: message
+        }
+    }, (err, httpResponse, body) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({
+                httpResponse: httpResponse,
+                body: body
+            });
+        }
+    });
+};
 
 exports.getList = function (req, res) {
     Model.find(function (err, datas) {
@@ -13,28 +41,6 @@ exports.getList = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            request({
-                method: 'POST',
-                uri: 'https://notify-api.line.me/api/notify',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                auth: {
-                    'bearer': 'cuHsIVD1yGgwnzEuSQ13Br9Y4T4ZE2lHVfN4T9MzNaB'
-                },
-                form: {
-                    message: 'message'
-                }
-            }, (err, httpResponse, body) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.json({
-                        httpResponse: httpResponse,
-                        body: body
-                    });
-                }
-            });
             res.jsonp({
                 status: 200,
                 data: datas
