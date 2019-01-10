@@ -8,6 +8,7 @@ var request = require('supertest'),
     User = mongoose.model('User');
 
 var item,
+    notify,
     credentials,
     token;
 
@@ -17,6 +18,10 @@ describe(_model + ' CRUD routes tests', function () {
         item = {
             name: 'name'
         };
+        notify = {
+            token: 'cuHsIVD1yGgwnzEuSQ13Br9Y4T4ZE2lHVfN4T9MzNaB',
+            message: 'สวัสดีชาวโลก!',
+        };
         credentials = {
             username: 'username',
             password: 'password',
@@ -25,6 +30,23 @@ describe(_model + ' CRUD routes tests', function () {
             email: 'test@email.com'
         };
         done();
+    });
+
+    it('should be post Notify', function (done) {
+        request(app)
+            .post('/api/post-notify')
+            .set('Authorization', 'Bearer ' + token)
+            .send(notify)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                assert.equal(resp.status, 200);
+                assert.equal(resp.data.message, notify.message);
+                done();
+            });
     });
 
     it('should be signup get token for test ', function (done) {

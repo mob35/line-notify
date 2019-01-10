@@ -10,6 +10,12 @@ var ModelSchema = new Schema({
     name: {
         type: String
     },
+    token: {
+        type: String
+    },
+    message: {
+        type: String
+    },
     created: {
         type: Date,
         default: Date.now
