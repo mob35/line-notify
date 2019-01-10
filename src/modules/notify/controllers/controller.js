@@ -7,33 +7,6 @@ var mongoose = require('mongoose'),
     request = require('request');
 
 exports.getNotify = function (req, res) {
-    let token = 'cuHsIVD1yGgwnzEuSQ13Br9Y4T4ZE2lHVfN4T9MzNaB';
-    let message = 'req.body.message';
-    request({
-        method: 'POST',
-        uri: 'https://notify-api.line.me/api/notify',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        auth: {
-            'bearer': token
-        },
-        form: {
-            message: message
-        }
-    }, (err, httpResponse, body) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json({
-                httpResponse: httpResponse,
-                body: body
-            });
-        }
-    });
-};
-
-exports.postNotify = function (req, res, next) {
     request({
         method: 'GET',
         uri: 'https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=UxOzoFBdQrzhSghQdQTelG&redirect_uri=https://line-notifies.herokuapp.com&scope=notify&state=NO_STATE',
@@ -52,6 +25,10 @@ exports.postNotify = function (req, res, next) {
             // };
         }
     });
+};
+
+exports.postNotify = function (req, res, next) {
+   
     let token = req.body.token;
     let message = req.body.message;
     request({
