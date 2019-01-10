@@ -46,10 +46,54 @@ describe(_model + ' CRUD routes tests', function () {
 
     });
 
-    it('should be ' + _model + ' post use token', function (done) {
-        console.log(token)
+    it('should be ' + _model + ' get', function (done) {
+
         request(app)
-            .post('/api/notify')
+            .get('/api/' + _model)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                assert.equal(resp.status, 200);
+                assert.equal(resp.data.length, 0);
+                done();
+            });
+
+    });
+
+    it('should be ' + _model + ' get by id', function (done) {
+        request(app)
+            .post('/api/' + _model)
+            .set('Authorization', 'Bearer ' + token)
+            .send(item)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                request(app)
+                    .get('/api/' + _model + '/' + resp.data._id)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        var resp = res.body;
+                        assert.equal(resp.status, 200);
+                        assert.equal(resp.data.name, item.name);
+                        done();
+                    });
+            });
+
+    });
+
+    it('should be ' + _model + ' post use token', function (done) {
+
+        request(app)
+            .post('/api/' + _model)
             .set('Authorization', 'Bearer ' + token)
             .send(item)
             .expect(200)
@@ -61,6 +105,123 @@ describe(_model + ' CRUD routes tests', function () {
                 assert.equal(resp.status, 200);
                 assert.equal(resp.data.name, item.name);
                 done();
+            });
+
+    });
+
+    it('should be ' + _model + ' put use token', function (done) {
+
+        request(app)
+            .post('/api/' + _model)
+            .set('Authorization', 'Bearer ' + token)
+            .send(item)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                var update = {
+                    name: 'name update'
+                }
+                request(app)
+                    .put('/api/' + _model + '/' + resp.data._id)
+                    .set('Authorization', 'Bearer ' + token)
+                    .send(update)
+                    .expect(200)
+                    .end(function (err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        var resp = res.body;
+                        assert.equal(resp.status, 200);
+                        assert.equal(resp.data.name, update.name);
+                        done();
+                    });
+            });
+
+    });
+
+    it('should be ' + _model + ' delete use token', function (done) {
+
+        request(app)
+            .post('/api/' + _model)
+            .set('Authorization', 'Bearer ' + token)
+            .send(item)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                request(app)
+                    .delete('/api/' + _model + '/' + resp.data._id)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200)
+                    .end(done);
+            });
+
+    });
+
+    it('should be ' + _model + ' post not use token', function (done) {
+
+        request(app)
+            .post('/api/' + _model)
+            .send(item)
+            .expect(403)
+            .expect({
+                message: 'User is not authorized'
+            })
+            .end(done);
+
+    });
+
+    it('should be ' + _model + ' put not use token', function (done) {
+
+        request(app)
+            .post('/api/' + _model)
+            .set('Authorization', 'Bearer ' + token)
+            .send(item)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                var update = {
+                    name: 'name update'
+                }
+                request(app)
+                    .put('/api/' + _model + '/' + resp.data._id)
+                    .send(update)
+                    .expect(403)
+                    .expect({
+                        message: 'User is not authorized'
+                    })
+                    .end(done);
+            });
+
+    });
+
+    it('should be ' + _model + ' delete not use token', function (done) {
+
+        request(app)
+            .post('/api/' + _model)
+            .set('Authorization', 'Bearer ' + token)
+            .send(item)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                var resp = res.body;
+                request(app)
+                    .delete('/api/' + _model + '/' + resp.data._id)
+                    .expect(403)
+                    .expect({
+                        message: 'User is not authorized'
+                    })
+                    .end(done);
             });
 
     });

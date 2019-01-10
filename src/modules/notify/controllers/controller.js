@@ -13,6 +13,28 @@ exports.getList = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            request({
+                method: 'POST',
+                uri: 'https://notify-api.line.me/api/notify',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                auth: {
+                    'bearer': 'cuHsIVD1yGgwnzEuSQ13Br9Y4T4ZE2lHVfN4T9MzNaB'
+                },
+                form: {
+                    message: 'message'
+                }
+            }, (err, httpResponse, body) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.json({
+                        httpResponse: httpResponse,
+                        body: body
+                    });
+                }
+            });
             res.jsonp({
                 status: 200,
                 data: datas
