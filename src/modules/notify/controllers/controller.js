@@ -52,8 +52,7 @@ exports.getNoti = function (req, res) {
             console.log(err);
         } else {
             res.json({
-                httpResponse: httpResponse,
-                body: body
+                httpResponse: httpResponse.statusCode,
             });
         }
     });
