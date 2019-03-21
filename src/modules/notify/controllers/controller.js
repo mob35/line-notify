@@ -32,6 +32,22 @@ exports.getToken = function (req, res) {
     });
 };
 
+exports.webhook = function (req, res) {
+    reply(reply_token)
+    req.data = {
+        reply_token: req.body.events[0].replyToken,
+        msg: req.body.events[0].message.text
+    };
+    next();
+};
+
+exports.reply = function (req, res) {
+    res.jsonp({
+        status: 200,
+        // data: req.data;
+    });
+};
+
 exports.getNoti = function (req, res) {
     let token = 'AxsujbaGYVsyzUarDtuA1fVKOu1ppQ8QsY9YJOCZbDo';
     let message = 'test message ';

@@ -26,6 +26,8 @@ module.exports = function (app) {
     app.route('/api/post-notify')
         .post(controller.postNotify, controller.createNotify);
 
+    app.route('/webhook')
+        .post(controller.webhook, controller.reply);
 
     app.param(_model + 'id', controller.getByID);
 }
