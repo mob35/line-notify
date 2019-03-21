@@ -33,7 +33,7 @@ exports.getToken = function (req, res) {
 };
 
 exports.webhook = function (req, res) {
-    reply(reply_token)
+    console.log(req.body.events[0].replyToken)
     req.data = {
         reply_token: req.body.events[0].replyToken,
         msg: req.body.events[0].message.text
